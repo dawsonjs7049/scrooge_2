@@ -1,0 +1,63 @@
+<div class="modal-body">
+    <form [formGroup]="goalForm">
+        <div class="mb-3">
+            <label for="name" class="col-form-label">Goal Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name"/>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label for="goalTotal" class="col-form-label">Goal Target</label>
+                <input type="number" (change)="handleMonthlyCalc()" class="form-control" id="goalTotal" formControlName="target"/>    
+            </div>
+            <div class="col-4">
+                <label for="goalDate" class="col-form-label">Goal Date</label>
+                <input type="date" (change)="handleMonthlyCalc()" class="form-control" id="goalDate" formControlName="date"/>    
+            </div>
+            <div class="col-4">
+                <label for="monthly" class="col-form-label">Monthly Goal</label>
+                <input [value]="monthlyValue" type="number" class="form-control" id="monthly" disabled/>    
+            </div>
+        </div>
+    </form>
+    <div class="allGoals d-flex flex-wrap justify-content-around align-items-start">
+        <div class="goalCard" *ngFor="let goal of goalData">
+            <div>
+                <h3>{{ goal.name }}</h3>
+            </div>
+            <div class="goalInner">
+                <div class="p-1">
+                    <b>Start:</b> {{ goal.goalStartFormatted }}
+                </div>
+                <div class="p-1">
+                    <b>Target:</b> {{ goal.goalEndFormatted }}
+                </div>
+                <div class="p-1">
+                    <b>Total Goal:</b> {{ goal.goalTotal | currency }}
+                </div>
+                <div class="p-1">
+                    <b>Month Goal:</b> {{ goal.goalMonthly | currency }}
+                </div>
+                <div class="p-1 mb-2">
+                    <b>Current:</b> {{ goal.saved | currency }}
+                </div>
+                <div class="mt-2">
+                    <div class="w-100 text-center mb-1">
+                        {{ goal.percent }}%
+                    </div>
+                    <p>
+                        <ngb-progressbar type="primary" [value]="goal.percent" [striped]="true"></ngb-progressbar>
+                    </p>
+                </div>
+                <div>
+                    <button (click)="deleteGoal(goal.id)" class="btn btn-danger" [ngStyle]="{'width': '100%'}">
+                        Delete
+                    </button>     
+                </div> 
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="addGoal()">Save</button>
+</div>

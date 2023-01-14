@@ -1,0 +1,65 @@
+
+.monthly_container {
+
+}
+
+.monthly_item_col1 {
+    padding: 0px 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.monthly_item_col2 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.monthly_expenses_rows {
+    height: 40vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+.monthly_item_row {
+    padding: 5px;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 1rem;
+    border-radius: 5px !important;
+    background-color: white;
+    transition: all .5s ease-in-out;
+}
+  
+  .monthly_item_row:hover {
+    box-shadow: 2px 2px 4px 3px rgba(0, 0, 0, 0.2);
+  
+  }
+
+  .monthly_rows_container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+  }
+
+  .monthly_row_container {
+    width: 50%;
+    padding: 5px;
+  } 
+
+  @media only screen and (max-width: 770px) {
+ 
+    .monthly_expenses_rows {
+      height: 400px;
+      margin-bottom: 1rem;
+    }
+
+    .monthly_row_container {
+      width: 100%;
+      padding: 0;
+    } 
+
+  }

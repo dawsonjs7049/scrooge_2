@@ -1,0 +1,13 @@
+.loginContainer {
+    height: 100vh;
+    width: 100vw;
+    background-color: ghostwhite;
+    overflow: hidden;
+}
+
+.container {
+    width: 400px;
+    border-radius: 5px;
+    background-color: white;
+    padding: 1rem 2rem 2rem 2rem;
+}

@@ -1,0 +1,8 @@
+ng build to build the project
+npm start to run a local server
+
+FOR NETLIFY ROUTING PURPOSES
+    - to enable routing on netlify for angular projects,
+       you need to add  "src/_redirects" to assests array
+       in angular.json. Also add _redirects file in src directory
+       with just this in it: "/*  /index.html 200"

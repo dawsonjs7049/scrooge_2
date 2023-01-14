@@ -1,0 +1,74 @@
+
+<div class="container card col_container">
+    <div [ngStyle]="{'height': '70px'}">
+        <h2 class="text-center mt-2">Recurring Expenses</h2>
+        <div>
+            <h5 class="text-center m-1">Total Budget: {{ budget | currency }} | Remaining: {{ budgetFree | currency }}</h5>
+        </div>
+        <button class="btn btn-success absolute_right_btn" (click)="open(recurringModal)">
+            <i class="bi bi-plus-circle"></i>
+        </button>
+    </div>
+    <div class="recurring_cols">
+        <div class="recurring_list w-50">
+ 
+            <div *ngFor="let item of pieData">
+                <div class="row recurring_item_row">
+                    <div class="col recurring_item_col1 ">
+                        {{ item.name }}
+                    </div>
+                    <div class="col recurring_item_col2">
+                        <div [ngStyle]="{'padding': '5px 0'}">
+                            {{ item.value | currency }}
+                        </div>
+                        <div>
+                            <button class="btn btn-danger" (click)="deleteRecurring(item.id)"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="recurring_chart w-50">
+            <ngx-charts-pie-chart
+                [scheme]="colorScheme"
+                [results]="pieData"
+                [gradient]="gradient"
+                [legend]="false"
+                [legendPosition]="below"
+                [labels]="false"
+                [doughnut]="isDoughnut"
+                (select)="onSelect($event)"
+                (activate)="onActivate($event)"
+                (deactivate)="onDeactivate($event)"
+                >
+            </ngx-charts-pie-chart>
+        </div>
+    </div>
+</div>
+
+<ng-template #recurringModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add Recurring Expense</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="recurringForm">
+
+            <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Amount:</label>
+                <input (input)="recurringAmount" type="number" class="form-control" id="amount" formControlName="amount"/>
+            </div>
+            <div class="mb-3">
+                <label for="message-text" class="col-form-label">Description:</label>
+                <input (input)="recurringDescription" class="form-control" id="recurringDescription" formControlName="name"/>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="addRecurring()">Save</button>
+    </div>
+</ng-template>
+
+
+

@@ -1,0 +1,156 @@
+<div class="body">
+    <div class="w-100 row headerRow"> 
+        <div class="col m-0 w-100 headerContainer">
+            <div class="container">
+                <div class="w-100 h-100 p-0" id='header'>
+                    <div class="scroogeHeaderContainer">
+                        <div id="scroogeHeader"><i class="fa-4x bi bi-coin" [ngStyle]="{'margin-right': '.5rem', 'color': 'gold'}"></i><strong>Scrooge</strong></div>
+                    </div>
+
+                    <div class="headerBtnContainer">
+                        <span *ngIf="numSoonReminders > 0">
+                            <span class="remindersBtn" (click)="openLeft(reminders)">{{ numSoonReminders }}</span>
+                        </span>
+                        <div class="btn-group mx-2">
+                            <button class="btn btn-success" (click)="open(budget)">Update Budget</button>
+            
+                            <div class="btn-group" ngbDropdown role="group" id="dropdown-split-basic">
+                                <button type="button" class="btn btn-success" ngbDropdownToggle></button>
+                                <div class="dropdown-menu" ngbDropdownMenu>
+                                    <button ngbDropdownItem (click)="openScroll(wishlist)">Wishlist</button>
+                                    <button ngbDropdownItem (click)="openLeft(reminders)">Reminders</button>
+                                    <button ngbDropdownItem (click)="open(goals)"> Goals</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button (click)="logout()" class="btn btn-success"><i class="fa-2x bi bi-box-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container pt-4">
+    
+        <app-recurring></app-recurring>
+        <app-monthly></app-monthly>
+    
+        <!-- update budget -->
+        <ng-template #budget let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Update Budget</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="budgetForm">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Budget:</label>
+                        <input (change)="budgetAmount" type="number" class="form-control" id="budgetAmount" formControlName="amount"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="updateBudget()">Save</button>
+            </div>
+        </ng-template>
+
+
+        <ng-template #recurring let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Add Recurring Expense</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="recurringForm">
+    
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Amount:</label>
+                        <input (input)="recurringAmount" type="number" class="form-control" id="amount" formControlName="amount"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Description:</label>
+                        <input (input)="recurringDescription" class="form-control" id="recurringDescription" formControlName="name"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="addRecurring()">Save</button>
+            </div>
+        </ng-template>
+
+        <ng-template #goals let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Goals</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <app-goals></app-goals>
+        </ng-template>
+
+        <!-- off-canvas -->
+
+        <ng-template #wishlist let-offcanvas>
+            <div class="offcanvas-header pb-0">
+                <div class="text-center">
+                    <h2 class="offcanvas-title text-center">Wishlist</h2>
+                </div>
+                <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+            </div>
+            <div class="offcanvas-body wishlist_body">
+                <form [formGroup]="wishlistForm">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="wishlistName" placeholder="Item Name" formControlName="name">
+                        <label for="wishlistName">Item Name</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="number" class="form-control" id="wishlistAmount" placeholder="Item Amount" formControlName="amount">
+                        <label for="wishlistAmount">Item Amount</label>
+                    </div>
+                </form>
+            
+                <div class="wishlist_buttons_container row mt-2">
+                    <div class="col pr-1">
+                        <button type="button" class="btn btn-outline-primary w-100" (click)="addWishlistItem()">Add</button>
+                    </div>
+                    <div class="col pl-1">
+                        <button type="button" class="btn btn-outline-danger w-100" (click)="offcanvas.close('Close click')">Close</button>
+                    </div>
+                </div>
+                <app-wishlist></app-wishlist>
+            </div>
+        </ng-template>
+
+        <ng-template #reminders let-offcanvas>
+            <div class="offcanvas-header pb-0">
+                <div class="text-center">
+                    <h2 class="offcanvas-title text-center">Reminders</h2>
+                </div>
+                <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+            </div>
+            <div class="offcanvas-body reminders_body">
+                <form [formGroup]="reminderForm">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="remindersName" placeholder="Reminder Name" formControlName="name">
+                        <label for="wishlistName">Reminder Name</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="date" class="form-control" id="reminderDate" placeholder="" formControlName="timestamp">
+                        <label for="reminderDate">Date</label>
+                    </div>
+                </form>
+            
+                <div class="wishlist_buttons_container row mt-2">
+                    <div class="col pr-1">
+                        <button type="button" class="btn btn-outline-primary w-100" (click)="addReminder()">Add</button>
+                    </div>
+                    <div class="col pl-1">
+                        <button type="button" class="btn btn-outline-danger w-100" (click)="offcanvas.close('Close click')">Close</button>
+                    </div>
+                </div>
+                <app-reminders></app-reminders>
+            </div>
+        </ng-template>
+   
+
+    </div>
+    
+</div>

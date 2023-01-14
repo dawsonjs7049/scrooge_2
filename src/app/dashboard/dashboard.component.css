@@ -1,0 +1,134 @@
+.headerContainer {
+    height: 4rem;
+    background-color: ghostwhite;
+    width: 100vw;
+    padding: 0px !important;
+    margin: 0 !important;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .headerRow {
+    margin: 0px; 
+    padding: 0px; 
+    height: 4rem;
+  }
+
+  .scroogeHeaderContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #scroogeHeader {
+    font-size: 2.3rem;
+    font-weight: bold;
+  }
+  
+  #header {
+    width: 100%;
+    /* max-width: 1000px; */
+    padding: 0 12px 0 12px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .body {
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(
+      200.96deg,
+      #cfcaf9 -29.09%,
+      #1272a2 51.77%,
+      #393ec6 129.35%
+    );
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  .remindersBtn {
+    border-radius: 5px;
+    width: 38px;
+    height: 38px;
+    background-color: red;
+    /* margin-right: .5rem; */
+    text-align: center;
+    color: white;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    animation-name: breathing;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  
+  @keyframes breathing {
+    0% {
+      transform: scale(1);
+    }
+    
+    50% {
+      transform: scale(.9);
+    }
+    
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .headerBtnContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .wishlist_body {
+    height: 100%;
+    overflow-y: hidden;
+  }
+
+  .reminders_body {
+    height: 100%;
+    overflow-y: hidden;
+  }
+
+  @media only screen and (max-width: 770px) {
+ 
+    .body {
+      overflow-y: auto;
+    }
+
+    .headerContainer {
+      height: 7rem;
+    }
+
+    .headerRow {
+      height: 7rem;
+    }
+      
+    #header {
+      width: 20rem;
+      padding: 0 12px 0 12px;
+      flex-wrap: nowrap;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+  }
+
+ 

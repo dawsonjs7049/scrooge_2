@@ -1,0 +1,71 @@
+<div class="container p-0 mt-4 monthly_container">
+    <div class="row mb-2">
+        <div class="col w-100" [ngStyle]="{'display': 'flex', 'flexDirection': 'row', 'flexWrap': 'nowrap', 'justifyContent': 'space-between', 'alignItems': 'center'}">
+            <h2 [ngStyle]="{'color': 'white'}" class="m-0"> {{ monthName }} Expenses - Total: {{ monthlyTotal | currency }}</h2>
+
+            <div class="btn-group">
+                <button class="btn btn-success" (click)="open(monthly)"> <i class="bi bi-plus-circle"></i></button>
+    
+                <div class="btn-group" ngbDropdown role="group" id="dropdown-split-basic">
+                    <button type="button" class="btn btn-success" ngbDropdownToggle></button>
+                    <div class="dropdown-menu" ngbDropdownMenu>
+                        <button ngbDropdownItem (click)="open(allExpenses)">All Expenses</button>
+                    </div>
+                </div>
+            </div>
+        </div>               
+    </div>
+
+    <div class="monthly_expenses_rows">
+        <div class="monthly_rows_container">
+
+            <div class="monthly_row_container" *ngFor="let expense of monthlyData">
+                <div class="row monthly_item_row">
+                    <div class="col monthly_item_col1 ">
+                        {{ expense.name }}
+                    </div>
+                    <div class="col monthly_item_col2">
+                        <div [ngStyle]="{'padding': '5px 0'}">
+                            {{ expense.amount | currency }}
+                        </div>
+                        <div>
+                            <button class="btn btn-danger" (click)="deleteMonthly(expense.id)"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<ng-template #monthly let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add Monthly Expense</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="monthlyForm">
+
+            <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Amount:</label>
+                <input (input)="monthlyAmount" type="number" class="form-control" id="amount" formControlName="amount"/>
+            </div>
+            <div class="mb-3">
+                <label for="message-text" class="col-form-label">Description:</label>
+                <input (input)="monthlyDescription" class="form-control" id="name" formControlName="name"/>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="addMonthly()">Save</button>
+    </div>
+</ng-template>
+
+<ng-template #allExpenses let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">View Expenses</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <app-view-expensnes></app-view-expensnes>
+</ng-template>

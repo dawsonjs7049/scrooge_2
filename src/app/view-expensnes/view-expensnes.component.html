@@ -1,0 +1,24 @@
+<div class="modal-body">
+    <form [formGroup]="viewExpenseForm">
+        <div class="mb-3">
+            <label for="message-text" class="col-form-label">Expenses Since:</label>
+            <input type="date" (change)="calculateViewable()" class="form-control" id="viewDate" formControlName="date"/>
+        </div>
+    </form>
+    <div class="viewableExpenses">
+        <div *ngFor="let expense of viewableExpenses">
+            <div class="w-100 d-flex align-items-center allExpenseRow">
+                <div [ngStyle]="{'width': '55%'}">
+                    {{ expense.name }}
+                </div>
+                <div [ngStyle]="{'width': '15%','textAlign': 'start'}">
+                    {{ expense.amount | currency }}
+                </div>
+                <div [ngStyle]="{'width': '30%','textAlign': 'end'}">
+                    {{ expense.date }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

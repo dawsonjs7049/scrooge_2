@@ -1,0 +1,22 @@
+<div class="container p-0 mt-1">
+    <div *ngFor="let item of wishlistData">
+        <div class="row">
+            <div class="col wishlist_row">
+                <div *ngIf="item.isFavorited === 1" (click)="updateWishlistItem(item)" class="star text-center">
+                    <i class="bi bi-star-fill"></i>
+                </div>
+                <div *ngIf="item.isFavorited === 0" (click)="updateWishlistItem(item)" class="star text-center">
+                    <i class="bi bi-star"></i>
+                </div>
+                <div [ngStyle]="{'width': '60%'}">
+                    {{ item.name }}
+                </div>
+                <div [ngStyle]="{'width': '20%'}">
+                    {{ item.amount | currency }}
+                </div>
+                <button class="btn btn-danger" (click)="deleteWishlistItem(item.id)"><i class="bi bi-trash"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+

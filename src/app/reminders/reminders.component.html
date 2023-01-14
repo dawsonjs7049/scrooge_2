@@ -1,0 +1,32 @@
+<div class="container p-0 mt-2 remindersContainer">
+    <div *ngIf="remindersDataSoon && remindersDataSoon.length > 0">
+        <h3 class="mt-3 mb-0">Upcoming</h3>
+        <div *ngFor="let item of remindersDataSoon">
+            <div class="row">
+                <div class="col reminder_row">
+                    <div [ngStyle]="{'width': '55%'}">
+                        {{ item.name }}
+                    </div>
+                    <div [ngStyle]="{'width': '25%'}">
+                        {{ item.date}}
+                    </div>
+                    <button class="btn btn-danger" (click)="deleteReminder(item.id)"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3 class="mt-4 mb-0">All Reminders</h3>
+    <div *ngFor="let item of remindersData">
+        <div class="row">
+            <div class="col reminder_row">
+                <div [ngStyle]="{'width': '55%'}">
+                    {{ item.name }}
+                </div>
+                <div [ngStyle]="{'width': '25%'}">
+                    {{ item.date}}
+                </div>
+                <button class="btn btn-danger" (click)="deleteReminder(item.id)"><i class="bi bi-trash"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
